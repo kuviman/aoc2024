@@ -61,3 +61,21 @@ let list_filter = ( const T = int32; #forall[T] {
         result
     }
 ); #};
+
+let mut do_log = false;
+
+let set_do_log = @"do" => ( do_log = @"do" );
+
+let log_print = s => (
+    if do_log then (
+        print s;
+    );
+);
+
+let log_dbg = forall[T] {
+    fn (x :: T) {
+        if do_log then (
+            dbg x;
+        );
+    }
+};
