@@ -79,3 +79,11 @@ let log_dbg = forall[T] {
         );
     }
 };
+
+let range = fn(from :: int32, to :: int32) -> () with loop_context[int32] {
+    let mut i = from;
+    while i < to {
+        yield i;
+        i += 1;
+    };
+};
