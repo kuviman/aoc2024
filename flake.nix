@@ -20,6 +20,7 @@
         devShells.default = mkShell {
           packages = [
             kast.packages.${system}.default
+            graphviz
           ];
         };
       }
