@@ -50,6 +50,12 @@ let sort = forall[T] {
     }
 };
 
+let min = forall[T] {
+    fn(a :: T, b :: T) -> T {
+        if a < b then a else b
+    }
+};
+
 let sort_by = forall[T] {
     fn(x :: list[T], cmp :: (T, T) -> int32) -> list[T] {
         if list_length x <= 1 then (
