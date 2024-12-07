@@ -3,14 +3,14 @@ module:
 use std.*;
 
 let lines = fn(s) {
-    split_by(s, c => c == '\n', true)
+    split_by(s, c => c == '\n', .yield_empty = true)
 };
 
 let split_whitespace = fn(s) {
-    split_by(s, c => c == ' ', false)
+    split_by(s, c => c == ' ', .yield_empty = false)
 };
 
-let split_by = fn(s :: string, f :: char -> bool, yield_empty :: bool) {
+let split_by = fn(s :: string, f :: char -> bool, .yield_empty :: bool) {
     let mut line = "";
     for c in chars(s) {
         if f(c) then (
@@ -61,7 +61,7 @@ let sort_by = forall[T] {
         if list_length x <= 1 then (
             x
         ) else (
-            let pivot = list_get (x, 0);
+            let pivot = list_get (x, random (.min = 0, .max = list_length x - 1));
             let first_half = sort_by (list_filter (x, elem => cmp (elem, pivot) < 0), cmp);
             let equals = list_filter (x, elem => cmp (elem, pivot) == 0);
             let second_half = sort_by (list_filter (x, elem => cmp (elem, pivot) > 0), cmp);
