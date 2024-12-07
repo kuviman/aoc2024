@@ -3,6 +3,8 @@ module:
 use (import "../util.ks").*;
 use std.*;
 
+# Should i really participate in "Advent of Cheaters"?
+# I wish I had just used rust...
 syntax mapM <- 15 = expr "$>" f;
 impl syntax mapM = macro (.expr, .f) => `((
     let e = () => $expr;
@@ -36,8 +38,8 @@ const map = forall[T, U] {
     }
 };
 
-/*const enumerate = forall[T] {
-    fn (gen :: () -> () with generator_handler[T]) -> () with generator_handler[int32, T] {
+const enumerate = forall[T] {
+    fn (gen :: () -> ()) -> () with generator_handler[int32, T] {
         let outer = current generator_handler[int32, T];
         let mut i = 0;
         for item :: T in gen() {
@@ -45,7 +47,7 @@ const map = forall[T, U] {
             i += 1;
         };
     }
-};*/
+};
 
 const Equation :: type = (.test = int64, .numbers = list[int64]);
 const Input :: type = list[Equation];
@@ -119,19 +121,18 @@ let solve = fn(path) {
     let input = sort_by (input, (a :: Equation, b :: Equation) => (if a.test < b.test then (-1) else (+1)));
     print "sorted";
     let mut answer = 0;
-    let mut i :: int32 = 0;
-    for eq :: Equation in list_iter input {
+    for i :: int32, eq :: Equation in list_iter input $> enumerate[Equation] {
+        # print format!"$i / ${list_len input}";
         dbg i;
         if potentially_true eq then (
             answer += eq.test;
         );
-        i += 1;
     };
     answer
 };
 
 if exec_mode() is :Run then (
-    let answer = solve "day07/input.txt";
+    let answer = solve "day07/example.txt";
     print "== ANSWER ==";
     dbg answer;
 );
