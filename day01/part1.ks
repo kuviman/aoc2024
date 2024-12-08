@@ -1,3 +1,4 @@
+#!/usr/bin/env kast
 use import "../util.ks".*;
 use std.*;
 
