@@ -109,6 +109,16 @@ let list_filter = forall[T] {
     }
 };
 
+let init_list = forall[T] {
+    fn(n :: int32, elem :: T) -> list[T] {
+        let mut result = list[];
+        for _ :: int32 in range(0, n) {
+            result = list_push(result, elem);
+        };
+        result
+    }
+};
+
 let mut do_log = false;
 
 let set_do_log = @"do" => ( do_log = @"do" );
